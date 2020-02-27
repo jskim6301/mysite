@@ -29,7 +29,7 @@ public class GuestbookController {
 	
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String list(GuestbookVO vo) {
-		guestBookService.insert(vo);
+		guestBookService.writeMessage(vo);
 		return "redirect:/guestbook/";
 	}
 	
@@ -50,7 +50,7 @@ public class GuestbookController {
 			@RequestParam(value="password", required=true, defaultValue="") String password) {
 		System.out.println(no);
 		System.out.println(password);
-		guestBookService.delete(no,password);
+		guestBookService.deleteMessage(no,password);
 		return "redirect:/guestbook/";
 	}
 }

@@ -26,5 +26,19 @@
 		order by no desc
 			limit 0,3
 		]]>
-	</select>	
+	</select>
+	
+	<insert id="insert" parameterType="guestbookvo">
+		<![CDATA[	
+			insert into guestbook values(null,#{name},#{contents},#{password},now())
+		]]>	
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+			delete from guestbook where no = #{no} and password = #{password}
+		]]>	
+	</delete>	
 </mapper>

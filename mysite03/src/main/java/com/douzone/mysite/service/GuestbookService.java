@@ -18,13 +18,13 @@ public class GuestbookService {
 		return list;
 	}
 
-	public Boolean insert(GuestbookVO vo) {
+	public Boolean writeMessage(GuestbookVO vo) {
 		int count = guestbookRepository.insert(vo);
 		return count == 1;
 	}
 
-	public void delete(Long no,String password) {
-		guestbookRepository.delete(no,password);
+	public Boolean deleteMessage(Long no,String password) {
+		return 1 == guestbookRepository.delete(no,password);
 	}
 	
 }
