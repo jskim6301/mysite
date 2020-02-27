@@ -15,8 +15,8 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
-					<input type="hidden" name="groupNo" value="${boardVO.gNo }">
-					<input type="hidden" name="orderNo" value="${boardVO.oNo }">
+					<input type="hidden" name="gNo" value="${boardVO.gNo }">
+					<input type="hidden" name="oNo" value="${boardVO.oNo }">
 					<input type="hidden" name="depth" value="${boardVO.depth }">
 					<input type="hidden" name="p" value="${param.p }" />
 					<input type="hidden" name="kwd" value="${param.kwd }" />

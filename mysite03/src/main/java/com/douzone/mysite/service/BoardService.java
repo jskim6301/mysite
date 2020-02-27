@@ -85,6 +85,10 @@ public class BoardService {
 		return boardVO;
 	}
 
+	public BoardVO getContents( Long no, Long userNo ) {
+		BoardVO boardVO = boardRepository.findByNoAndUserNo( no, userNo );
+		return boardVO;
+	}
 
 
 	public boolean addContents(BoardVO boardVO) {
@@ -99,6 +103,20 @@ public class BoardService {
 	public boolean increaseGroupOrderNo(BoardVO boardVO) {
 		return boardRepository.updateSequece(boardVO.getgNo(),boardVO.getoNo()) > 0; 
 		
+	}
+
+
+
+	public boolean deleteContents(Long boardNo, Long userNo) {
+		int count = boardRepository.delete(boardNo, userNo);
+		return count == 1;		
+	}
+
+
+
+	public boolean modifyContents( BoardVO boardVO ) {
+		int count = boardRepository.update( boardVO );
+		return count == 1;
 	}
 
 }

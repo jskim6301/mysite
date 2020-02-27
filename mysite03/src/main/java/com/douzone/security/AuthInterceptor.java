@@ -56,7 +56,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		 //     USER=> 일반 유저 로그인 후 주소창에 /user로 들어간 경우 
 		 //     ADMIN=> 일반 유저 로그인 후 주소창에 /admin으로 들어간 경우
-		if("USER".equals(authUser.getRole()) == false) { //8. @Auth의 role이 "USER"인 경우에는 authUser의 role이 "USER"이든 "ADMIN"이든 상관이 없음.
+		if("USER".equals(role)) { //8. @Auth의 role이 "USER"인 경우에는 authUser의 role이 "USER"이든 "ADMIN"이든 상관이 없음.
 			return true;
 		}else if("ADMIN".equals(authUser.getRole()) == false) { //9. @Auth의 role이 "ADMIN"인 경우에는 반드시 authUser의 role이 "ADMIN" 여야 한다.
 			response.sendRedirect(request.getContextPath());

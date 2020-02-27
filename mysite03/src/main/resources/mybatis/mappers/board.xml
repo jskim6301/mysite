@@ -36,7 +36,7 @@
 						b.name as userName
 					from board a, user b 
 					where a.user_no = b.no 
-						order by a.g_no desc, a.o_no desc 
+						order by a.g_no desc, a.o_no asc 
 						limit #{displayPost}, #{postNum}
 				]]>			
 			</when>
@@ -56,7 +56,7 @@
 					from board a, user b 
 					where a.user_no = b.no 
 						and (title like '%${keyword }%' or contents like '%${keyword }%')
-					order by a.g_no desc, a.o_no desc 
+					order by a.g_no desc, a.o_no asc 
 					limit #{displayPost}, #{postNum}
 				]]>				
 			</otherwise>
@@ -94,7 +94,8 @@
 		<choose>
 			<when test="gNo == null">
 				<![CDATA[ 
-					insert into board values(null,#{title},#{contents},0,now(),(select ifnull( max(b.g_no),0)+1 from board b),1,0,#{userNo})
+					insert into board 
+					values(null,#{title},#{contents},0,now(),(select ifnull( max(b.g_no),0)+1 from board b),1,0,#{userNo})
 				]]>
 			</when>
 			<otherwise>
@@ -104,5 +105,36 @@
 			</otherwise>
 		</choose>
 	</insert>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+		delete
+		  from board 
+		 where no = #{no }
+		   and user_no = #{userNo }
+		]]>	
+	</delete>
+
+	<select id="findByNoAndUserNo" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select	no,
+				title,
+				contents
+		   from board
+		  where no = #{no }
+		    and user_no = #{userNo }		
+		]]>		
+	</select>	
+	
+	<update id="update" parameterType="boardvo">
+		<![CDATA[
+		update board 
+		   set title=#{title },
+		       contents=#{contents }
+		 where no=#{no }
+		   and user_no=#{userNo }		
+		]]>	
+	</update>	
+	
 	
 </mapper>

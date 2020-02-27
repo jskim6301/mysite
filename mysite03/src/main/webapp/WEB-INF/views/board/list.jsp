@@ -18,73 +18,51 @@
 					<input type="text" id="kwd" name="kwd" value="${keyword }">
 					<input type="submit" value="찾기">
 				</form>
-				
+
+
 				<table class="tbl-ex">
 					<tr>
-						<th>번호</th> 
+						<th>번호</th>
 						<th>제목</th>
 						<th>글쓴이</th>
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					<c:set var="cnt" value='${fn:length(list) }'/>
-					
-					<c:forEach items='${map.list}' var='vo' varStatus='status'>
-					<tr>
-						<td>${map.count-(map.displayPost) -status.index }</td>
-						
-						<c:choose>
-							<c:when test="${fn:length(vo.contents) > 0 }"> <!-- 내용이 있을 경우 -->
-							
-								<c:choose>
-								<c:when test="${vo.depth>0}">
-									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite03/assets/images/reply.png'><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>
+					</tr>
+					<c:forEach items="${map.list }"	var="vo" varStatus="status">			
+						<tr>
+							<td>${map.count-(map.displayPost) -status.index }</td>
+							<c:choose>
+								<c:when test="${vo.depth > 0 }">
+									<td class="left" style="text-align:left; padding-left:${20*vo.depth }px">
+										<img src="${pageContext.request.contextPath }/assets/images/reply.png">
+										<a href="${pageContext.request.contextPath }/board/view/${vo.no }?p=${map.currentPage }&kwd=${map.keyword }">${vo.title }</a>
+									</td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:left; padding-left:${30*vo.depth }px"><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>							
-								</c:otherwise>								
-								</c:choose>								
-																								
-							</c:when>
-							
-							<c:otherwise><!-- 내용이 없을경우 -->
-								<c:choose>
-								<c:when test="${vo.depth>0}">
-									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite03/assets/images/reply.png'>${vo.title }</td>
-								</c:when>
-								<c:otherwise>
-									<td>${vo.title }</td>
+									<td class="left" style="text-align:left">
+										<a href="${pageContext.request.contextPath }/board/view/${vo.no }?p=${map.currentPage }&kwd=${map.keyword }">${vo.title }</a>
+									</td>
 								</c:otherwise>
+							</c:choose>
+							<td>${vo.userName }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>
+							<td>
+								<c:choose>
+									<c:when test="${not empty authUser && authUser.no == vo.userNo }">
+										<a href="${pageContext.request.contextPath }/board/delete/${vo.no }?p=${map.currentPage }&kwd=${map.keyword }" class="del">삭제</a>
+									</c:when>
+									<c:otherwise>
+										&nbsp;
+									</c:otherwise>
 								</c:choose>
-							</c:otherwise>
-						</c:choose>
-						
-						
-						<c:choose>
-							<c:when test="${fn:length(vo.contents) > 0 }"> <!-- 내용이 있을 경우 -->						
-								<td>${vo.userName }</td>
-								<td>${vo.hit }</td>
-								<td>${fn:substring(vo.regDate,0,19) }</td>
-								<%-- <td><fmt:formatDate value="${vo.regDate}" pattern="yyyy-MM-dd" /></td> --%>										
-								<c:if test="${vo.userName==authUser.name }">
-									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
-								</c:if>
-							</c:when>
-							<c:otherwise>
-								<td>${vo.userName }</td>
-								<td>${vo.hit }</td>
-								<td>${fn:substring(vo.regDate,0,19) }</td>
-								<c:if test="${vo.userName==authUser.name }">
-									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
-								</c:if>								
-							</c:otherwise>
-						</c:choose>
-													
-					</tr>						
+							</td>
+						</tr>
 					</c:forEach>
 				</table>
-			
+
+
 
 				<!-- pager 추가 -->
 				<div class ="pager">
