@@ -27,9 +27,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 		
 		//4.Method에 @Auth가 없으면 Type에 붙어 있는지 확인한다(과제)
-		//if(auth == null) {
-			//auth = <- 과제
-		//}
+		if(auth == null) {
+			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
+		}
 		
 		//5. Type이나 Method 둘 다 @Auth가 적용이 안되어 있는 경우,
 		if(auth == null) {
@@ -56,9 +56,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		 //     USER=> 일반 유저 로그인 후 주소창에 /user로 들어간 경우 
 		 //     ADMIN=> 일반 유저 로그인 후 주소창에 /admin으로 들어간 경우
-		if("USER".equals(role)) { //8. @Auth의 role이 "USER"인 경우에는 authUser의 role이 "USER"이든 "ADMIN"이든 상관이 없음.
+		if("USER".equals(authUser.getRole()) == false) { //8. @Auth의 role이 "USER"인 경우에는 authUser의 role이 "USER"이든 "ADMIN"이든 상관이 없음.
 			return true;
-		}else if("ADMIN".equals(role) == false) { //9. @Auth의 role이 "ADMIN"인 경우에는 반드시 authUser의 role이 "ADMIN" 여야 한다.
+		}else if("ADMIN".equals(authUser.getRole()) == false) { //9. @Auth의 role이 "ADMIN"인 경우에는 반드시 authUser의 role이 "ADMIN" 여야 한다.
 			response.sendRedirect(request.getContextPath());
 			return false; 
 		}

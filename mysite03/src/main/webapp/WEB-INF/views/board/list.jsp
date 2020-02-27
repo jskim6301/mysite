@@ -34,22 +34,12 @@
 					<tr>
 						<td>${map.count-(map.displayPost) -status.index }</td>
 						
-<%-- 						<c:choose>
-							<c:when test="${vo.depth>0}">
-							</c:when>							
-							<c:otherwise>
-								<td style="text-align:left; padding-left:${30*vo.depth }px"><a href="${pageContext.request.contextPath }/board?a=viewform&no=${vo.no}">${vo.title }</a></td>							
-							</c:otherwise>							
-							
-						</c:choose> --%>
-						
-						
 						<c:choose>
 							<c:when test="${fn:length(vo.contents) > 0 }"> <!-- 내용이 있을 경우 -->
 							
 								<c:choose>
 								<c:when test="${vo.depth>0}">
-									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite02/assets/images/reply.png'><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>
+									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite03/assets/images/reply.png'><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:left; padding-left:${30*vo.depth }px"><a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a></td>							
@@ -61,7 +51,7 @@
 							<c:otherwise><!-- 내용이 없을경우 -->
 								<c:choose>
 								<c:when test="${vo.depth>0}">
-									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite02/assets/images/reply.png'>${vo.title }</td>
+									<td style="text-align:left; padding-left:${30*vo.depth }px"><img src='/mysite03/assets/images/reply.png'>${vo.title }</td>
 								</c:when>
 								<c:otherwise>
 									<td>${vo.title }</td>

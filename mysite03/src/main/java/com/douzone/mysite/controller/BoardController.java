@@ -48,118 +48,53 @@ public class BoardController {
 		return "board/view";
 	}
 
-
-	@Auth
-	@RequestMapping( "/delete/{no}" )
-	public String delete(
-		HttpSession session,
-//		@AuthUser UserVO authUser
-		@PathVariable( "no" ) Long boardNo,
-		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
-		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
-/*
-		/////////////////////////////접근제어////////////////////////
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		///////////////////////////////////////////////////////////
- */
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-//--		boardService.deleteContents( boardNo, authUser.getNo() );
-		return "redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
-	}
-	
-	@Auth
-	@RequestMapping( value="/modify/{no}" )	
-	public String modify(
-		HttpSession session,
-//		@AuthUser UserVO authUser
-		@PathVariable( "no" ) Long no,
-		Model model) {
-/*
-		/////////////////////////////접근제어////////////////////////
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		///////////////////////////////////////////////////////////
-*/		
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-//--		BoardVO boardVo = boardService.getContents(no, authUser.getNo() );
-//		model.addAttribute( "boardVo", boardVo );
-		return "board/modify";
-	}
-	
-	@Auth
-	@RequestMapping( value="/modify", method=RequestMethod.POST )	
-	public String modify(
-		HttpSession session,	
-//		@AuthUser UserVO authUser
-		@ModelAttribute BoardVO boardVo,
-		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
-		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
-/*		
-		/////////////////////////////접근제어////////////////////////
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		///////////////////////////////////////////////////////////
-*/		
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
-		boardVo.setUserNo( authUser.getNo() );
-// --   	boardService.modifyContents( boardVo );
-		return "redirect:/board/view/" + boardVo.getNo() + 
-				"?p=" + page + 
-				"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
-	}
 	
 	
-	@Auth
+//	@Auth
 	@RequestMapping(value="/write",method=RequestMethod.GET)
 	public String write(HttpSession session) {
-/*
+
 		//////////////////////////////접근제어//////////////////////////
 		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
 		}
 		//////////////////////////////////////////////////////////////		
-*/
+
 		return "board/write";
 	}
-	@Auth
+	
+//	@Auth
 	@RequestMapping(value="/write",method=RequestMethod.POST)
 	public String write(HttpSession session,BoardVO boardVO,
 			@RequestParam(value="p",required=true,defaultValue="1") Integer page,
 			@RequestParam(value="kwd", required=true,defaultValue="") String keyword) {
-/*
+
 		//////////////////////////////접근제어//////////////////////////
 		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
 		}
 		//////////////////////////////////////////////////////////////
-*/
-		UserVO authUser = (UserVO)session.getAttribute("authUser");
+
+//		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		boardVO.setUserNo(authUser.getNo()); //로그인 한 사람이 답글을 달 수 있도록 한다.
 		boardService.addContents(boardVO); //처음 넣는 것
 		
 		return "redirect:/board?p="+page+"&kwd="+WebUtil.encodeURL(keyword,"UTF-8");
 	}
 	
-	@Auth
+//	@Auth
 	@RequestMapping(value="/reply/{no}")
 	public String reply(HttpSession session,@PathVariable("no") Long no, Model model) {
-/*
+
 		//////////////////////////////접근제어//////////////////////////
 		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
 		}
 		//////////////////////////////////////////////////////////////
- */
+
 		BoardVO boardVO = boardService.getContents(no);
 		boardVO.setoNo(boardVO.getoNo()+1);
 		boardVO.setDepth(boardVO.getDepth()+1);
@@ -167,5 +102,87 @@ public class BoardController {
 		
 		return "board/reply";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Auth
+	@RequestMapping( "/delete/{no}" )
+	public String delete(
+		HttpSession session,
+//		@AuthUser UserVO authUser
+		@PathVariable( "no" ) Long boardNo,
+		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
+		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
+
+		/////////////////////////////접근제어////////////////////////
+		UserVO authUser = (UserVO)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+ 
+//		UserVO authUser = (UserVO)session.getAttribute("authUser");
+//--		boardService.deleteContents( boardNo, authUser.getNo() );
+		return "redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
+	}
+	
+//	@Auth
+	@RequestMapping( value="/modify/{no}" )	
+	public String modify(
+		HttpSession session,
+//		@AuthUser UserVO authUser
+		@PathVariable( "no" ) Long no,
+		Model model) {
+
+		/////////////////////////////접근제어////////////////////////
+		UserVO authUser = (UserVO)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
+//		UserVO authUser = (UserVO)session.getAttribute("authUser");
+//--		BoardVO boardVo = boardService.getContents(no, authUser.getNo() );
+//		model.addAttribute( "boardVo", boardVo );
+		return "board/modify";
+	}
+	
+//	@Auth
+	@RequestMapping( value="/modify", method=RequestMethod.POST )	
+	public String modify(
+		HttpSession session,	
+//		@AuthUser UserVO authUser
+		@ModelAttribute BoardVO boardVo,
+		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
+		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
+		
+		/////////////////////////////접근제어////////////////////////
+		UserVO authUser = (UserVO)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		///////////////////////////////////////////////////////////
+		
+//		UserVO authUser = (UserVO)session.getAttribute("authUser");
+		boardVo.setUserNo( authUser.getNo() );
+// --   	boardService.modifyContents( boardVo );
+		return "redirect:/board/view/" + boardVo.getNo() + 
+				"?p=" + page + 
+				"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
+	}	
+	
+	
+	
+	
 }
 
