@@ -28,11 +28,11 @@ public class BoardController {
 	
 	@RequestMapping(value="")
 	public String list(
-			@RequestParam(value="num",required=true,defaultValue="1") int page,
+			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
 			@RequestParam(value="kwd",required=true,defaultValue="") String keyword,
 			Model model) {
 		
-		Map<String,Object> map = boardService.getContentsList(page,keyword);
+		Map<String,Object> map = boardService.getContentsList(currentPage,keyword);
 		model.addAttribute("map",map);
 		
 //		model.addAllAttributes(map);//jsp화면에서 이름(value)으로 바로 접근
@@ -160,8 +160,8 @@ public class BoardController {
 */
 		
 //		UserVO authUser = (UserVO)session.getAttribute("authUser");
-		BoardVO boardVo = boardService.getContents(no, authUser.getNo() );
-		model.addAttribute( "boardVo", boardVo );
+		BoardVO boardVO = boardService.getContents(no, authUser.getNo() );
+		model.addAttribute( "boardVO", boardVO );
 		return "board/modify";
 	}
 	
