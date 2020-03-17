@@ -10,7 +10,9 @@ import com.douzone.mysite.vo.AdminVO;
 
 @Controller
 public class MainController {
-
+	
+ 
+	
 	@Autowired
 	private AdminService adminService;
 	
@@ -19,6 +21,7 @@ public class MainController {
 		
 		AdminVO adminVO = adminService.getContents();
 		model.addAttribute("adminVO",adminVO);
+		
 		return "main/index";
 	}
 	
