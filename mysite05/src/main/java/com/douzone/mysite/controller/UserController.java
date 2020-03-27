@@ -39,7 +39,7 @@ public class UserController {
 			return "/user/join";
 		}
 		System.out.println(vo);
-//		userService.join(vo);
+		userService.join(vo);
 		System.out.println(vo);//프라이머리 키만 가능
 		return "redirect:/user/joinsuccess";
 	}
