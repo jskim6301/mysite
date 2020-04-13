@@ -10,13 +10,50 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+
+$(function(){
+		$("#btn-checkemail").click(function(){
+			var email = $("#email").val();
+			if(email == ''){
+				return;
+			}
+		$.ajax({
+			url: '${pageContext.request.contextPath }/api/user/checkemail?email=' + email,
+			async:true,
+			type:'get',
+			data:'',  
+			dataType: 'json', 
+			success: function(response){
+				if(response.result == 'exist'){
+					alert('존재하는 이메일입니다');
+					$("#email")
+						.val('')
+						.focus();
+					return;
+				}
+				$('#btn-checkemail').hide();
+				$('#img-checkemail').show();
+			},
+			error:function(XHR,status,e){
+				console.error(status+":"+e);
+			}
+		});
+	});
+});
+/* url 에서 $은 jQuery가 아니라 el이다. 브라우저단으로 내려가서 실행 
+ #email은 form:input에서 id값 email로 자동 설정
+ 
+ */
+
+</script>
 </head>
 <body>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" /><!--  -->
 		<div id="content">
 			<div id="user">
-
 				<form:form
 					modelAttribute="userVO" 
 					id="join-form" 
@@ -37,7 +74,8 @@
 					
 					<label class="block-label" for="email">이메일</label>
 					<form:input  path="email" />
-					<input type="button" value="id 중복체크">
+					<input type="button" id="btn-checkemail" value="이메일확인" >
+					<img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/check.png' />
 					<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
 					<form:errors path="email"/>					
 					</p>

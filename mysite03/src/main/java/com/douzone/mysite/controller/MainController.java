@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.mysite.service.AdminService;
 import com.douzone.mysite.vo.AdminVO;
+import com.douzone.mysite.vo.UserVO;
 
 @Controller
 public class MainController {
@@ -23,6 +25,12 @@ public class MainController {
 		model.addAttribute("adminVO",adminVO);
 		
 		return "main/index";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/hello")
+	public UserVO hello() {
+		return new UserVO();
 	}
 	
 }
