@@ -47,6 +47,22 @@ public class UserRepository {
 		
 		return sqlSession.update("user.update",userVO);	
 	}
+
+	
+	
+	
+	
+	
+	
+	public UserVO find(String email) {
+		return sqlSession.selectOne("user.findByEmail",email);
+	}
+	
+	
+	
+	
+	
+	
 	
 	/*
 	private Connection getConnection() throws SQLException {
