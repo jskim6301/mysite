@@ -4,7 +4,9 @@ public class JsonResult {
 	private String result;  /* "success" or "fail" */
 	private Object data;    /* if success Data set */
 	private String message; /* if fail, Error Message set */
-	
+
+	private JsonResult() {
+	}	
 	
 	
 	private JsonResult(Object data) {
