@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.douzone.mysite.dto.JsonResult;
 import com.douzone.mysite.service.UserService;
 
-@Controller("apiUserController")
+@Controller("UserApiController")
 @RequestMapping("/api/user")
 public class UserController { //UserController (빈)이 2개가 있어서 오류  =>@Controller("apiUserController") id 설정  , 기본적으로 UserController 를 userController로 만듬(앞에 소문자로)
 	
