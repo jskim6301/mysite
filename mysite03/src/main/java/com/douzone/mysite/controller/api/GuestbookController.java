@@ -19,7 +19,7 @@ import com.douzone.mysite.vo.GuestbookVO;
 @RestController("GuestbookApiController")
 @RequestMapping("/api/guestbook")
 public class GuestbookController {
-	
+	 
 	@Autowired
 	private GuestbookService guestBookService;
 	
@@ -28,7 +28,7 @@ public class GuestbookController {
 		List<GuestbookVO> list = guestBookService.getMessageList(startNo);
 		return JsonResult.success(list);
 	}
-	
+	 
 	@PostMapping("/add")
 	public JsonResult add(@RequestBody GuestbookVO vo) {
 		guestBookService.writeMessage(vo);

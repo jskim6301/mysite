@@ -244,7 +244,7 @@ $(function(){
 	
 	//처음 리스트 가져오기
 	fetchList();	
-	 
+	   
 	// jquery plugin test
 	$(".btn-fetch").hello();
 	$(".btn-fetch").flash();

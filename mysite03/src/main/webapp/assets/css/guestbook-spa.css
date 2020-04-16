@@ -74,7 +74,7 @@
 	border-radius:4px;	
 }
 
-#guestbook ul li a {
+#guestbook ul li a { 
 	position:absolute;
 	width:20px;
 	height:20px;

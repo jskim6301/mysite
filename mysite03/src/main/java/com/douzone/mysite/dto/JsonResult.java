@@ -6,13 +6,13 @@ public class JsonResult {
 	private String message; /* if fail, Error Message set */
 
 	private JsonResult() {
-	}	
+	}	 
 	
 	
 	private JsonResult(Object data) {
 		this.result = "success";
 		this.data = data;
-	}
+	} 
 	
 	private JsonResult(String message) {
 		this.result = "fail";
