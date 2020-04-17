@@ -42,5 +42,10 @@ public class GuestbookRepository {
 		map.put("password",password);
 		return sqlSession.delete("guestbook.delete",map);
 	}
+
+
+	public List<GuestbookVO> findAll(Long startNo) {
+		return sqlSession.selectList("guestbook.findAllByNo",startNo);
+	}
 	
 }
